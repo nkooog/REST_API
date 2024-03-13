@@ -48,7 +48,7 @@ public class EventControllerTests {
         mockMvc.perform(post("/api/events")
                         .contentType(MediaType.APPLICATION_JSON) // 요청 본문에 json을 담아 보냄
                         .accept(MediaTypes.HAL_JSON) // 응답받기 원한 타입
-                        .content(objectMapper.writeValueAsString(event)) // 요청 본문
+                        .content(objectMapper.writeValueAsString(event)) // 요청 본문은 json으로 변환하여 보내도록함
                 )
                 .andDo(print())
                 .andExpect(status().isCreated())
