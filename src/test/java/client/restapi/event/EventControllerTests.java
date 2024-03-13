@@ -55,4 +55,9 @@ public class EventControllerTests {
                 .andExpect(jsonPath("id").exists());
     }
 
+    @Test
+    public void test() {
+
+    }
+
 }
