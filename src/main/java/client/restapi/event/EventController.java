@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RestController
@@ -20,7 +19,7 @@ public class EventController {
     @PostMapping
     public ResponseEntity createEvent(@RequestBody Event event) {
         URI createdUri = linkTo(EventController.class).slash("{id}").toUri();
-        event.setId(10);
+        event.setId(10); // 수정사항
         return ResponseEntity.created(createdUri).body(event);
     }
 
