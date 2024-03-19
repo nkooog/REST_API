@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -29,6 +31,9 @@ public class EventControllerTests {
     @Autowired
     ObjectMapper objectMapper;
 
+    @MockBean
+    EventRepository eventRepository;
+
     @Test
     public void createEvent() throws Exception{
 
@@ -45,6 +50,9 @@ public class EventControllerTests {
                 .location("인천 미추홀구")
                 .build();
 
+        event.setId(11111);
+        Mockito.when(eventRepository.save(event)).thenReturn(event);
+
         mockMvc.perform(post("/api/events")
                         .contentType(MediaType.APPLICATION_JSON) // 요청 본문에 json을 담아 보냄
                         .accept(MediaTypes.HAL_JSON) // 응답받기 원한 타입
@@ -53,11 +61,6 @@ public class EventControllerTests {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").exists());
-    }
-
-    @Test
-    public void test() {
-
     }
 
 }
