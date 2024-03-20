@@ -136,5 +136,5 @@ public class EventControllerTests {
                 .andExpect(status().isBadRequest());
 
     }
-gi
+
 }
